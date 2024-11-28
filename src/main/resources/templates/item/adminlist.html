@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 전용 상품 목록</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+
+
+    <div class="row mt-3">
+        <div class="col text-end">
+            <button class="btn btn-dark newproduct">제품등록</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <th:block th:if="${not #lists.isEmpty(pageResponseDTO.dtoList)}">
+
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>제품명</td>
+                        <td>등록일자</td>
+                        <td>수정일자</td>
+                        <td>수정</td>
+                        <td>삭제</td>
+                    </tr>
+                    </thead>
+                    <th:block th:each="list: ${pageResponseDTO.dtoList}">
+                        <tbody>
+                        <tr class="align-middle">
+                            <td th:text="${list.id}"></td>
+                            <td>
+                                <a th:href="@{/admin/item/adminread(id=${list.id})}">
+                                    [[${list.itemNm}]]
+                                </a>
+                            </td>
+                            <td th:text="${#temporals.format(list.regiTime, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${#temporals.format(list.updateTime, 'yyyy-MM-dd')}"></td>
+                            <td>
+                                <button class="btn btn-warning modifyMoveBtn" th:value="${list.id}">수정</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger delMoveBtn" th:value="${list.id}">삭제</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+
+
+                </table>
+
+
+            </th:block>
+            <th:block th:if="${#lists.isEmpty(pageResponseDTO.dtoList)}">
+
+                <h1>게시물이 없습니다.</h1>
+
+            </th:block>
+        </div>
+    </div>
+    <th:block th:if="${not #lists.isEmpty(pageResponseDTO.dtoList)}">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+
+                        <th:block th:if="${pageResponseDTO.prev}">
+                            <li class="page-item"><a class="page-link"
+                                                     th:href="|@{'/admin/item/adminlist?page=' +${pageResponseDTO.start-1}}|">이전</a>
+                            </li>
+                        </th:block>
+
+                        <th:block th:each="num: ${#numbers.sequence(pageResponseDTO.start,pageResponseDTO.end)}">
+                            <li class="page-item"><a class="page-link"
+                                                     th:href="|@{'/admin/item/adminlist?page=' +${num}}|">[[${num}]]</a>
+                            </li>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseDTO.next}">
+                            <li class="page-item"><a class="page-link"
+                                                     th:href="|@{'/admin/item/adminlist?page=' +${pageResponseDTO.end+1}}|">다음</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-end">
+            <div class="col-6">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">찾기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="delform">
+
+        </div>
+
+    </th:block>
+
+    <script th:inline="javascript">
+
+        $(document).ready(function () {
+
+            $(".modifyMoveBtn").on("click", function () {
+                location.href = "/admin/item/modify?id=" + $(this).val();
+            })
+            $(".delMoveBtn").on("click", function () {
+                let formtag = document.createElement("form")
+                formtag.action = "/admin/item/remove";
+                formtag.method = "post";
+                formtag.innerHTML = "<input name='id' value='" + this.value + "'>";
+                $(".delform").append(formtag);
+
+                formtag.submit();
+
+
+            })
+
+
+        })
+
+
+        $(".newproduct").on("click", function () {
+            location.href = "/admin/item/register";
+        })
+    </script>
+
+</th:block>
+
+</body>
+</html>

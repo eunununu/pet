@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 전용 상품 상세보기</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+
+    <form action="#" method="post" th:object="${itemDTO}" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemNm" class="form-label">상품명</label>
+                            <input type="text" class="form-control" th:field="*{itemNm}" required id="itemNm" readonly>
+                            <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemPr" class="form-label">가격</label>
+                            <input type="number" min="0" class="form-control" th:field="*{itemPr}" id="itemPr" readonly>
+                            <p th:if="${#fields.hasErrors('itemPr')}" th:errors="*{itemPr}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemSq" class="form-label">재고 수량</label>
+                            <input type="number" min="0" class="form-control" th:field="*{itemSq}" id="itemSq" readonly>
+                            <p th:if="${#fields.hasErrors('itemSq')}" th:errors="*{itemSq}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemDt" class="form-label">상세설명 </label>
+                            <textarea class="form-control" th:field="*{itemDt}" id="itemDt" rows="3"
+                                      readonly></textarea>
+                            <p th:if="${#fields.hasErrors('itemDt')}" th:errors="*{itemDt}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemSellStatus" class="form-label">상품 판매 상태</label>
+                            <input th:field="*{itemSellStatus}" id="itemSellStatus" class="form-control" readonly>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3 imgA">
+
+                            <div class="row mb-5">
+                                <th:block th:each="img: ${itemDTO.itemImgDTOList}">
+                                    <th:block th:if="${img.repImgYn == 'Y'}">
+                                        <div class="col-12">
+                                            대표 이미지
+                                            <img width="100%" th:src="${img.imgUrl}">
+                                        </div>
+
+                                    </th:block>
+                                </th:block>
+                            </div>
+
+                            상세 이미지
+                            <div class="row row-cols-md-2 ">
+
+                                <th:block th:each="img: ${itemDTO.itemImgDTOList}">
+                                    <th:block th:unless="${img.repImgYn == 'Y'}">
+                                        <div class="col">
+                                            <img width="100%" th:src="${img.imgUrl}">
+                                        </div>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="button" class="btn btn-dark modifybtn">수정</button>
+                        <button type="button" class="btn btn-dark listbtn">목록</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+</th:block>
+
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        let itemid = [[${itemDTO.id}]]
+
+        $(document).ready(function () {
+            $(".modifybtn").on("click", function () {
+                location.href = "/admin/item/modify?id=" + itemid
+            })
+
+            $(".listbtn").on("click", function () {
+                location.href = "/admin/item/adminlist"
+            })
+        })
+
+    </script>
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 전용 아이템 등록</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+
+    <form action="/admin/item/register" method="post" th:object="${itemDTO}" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemNm" class="form-label">상품명</label>
+                            <input type="text" class="form-control" th:field="*{itemNm}" required id="itemNm">
+                            <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemPr" class="form-label">가격</label>
+                            <input type="number" min="1" class="form-control" th:field="*{itemPr}" id="itemPr">
+                            <p th:if="${#fields.hasErrors('itemPr')}" th:errors="*{itemPr}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemSq" class="form-label">재고 수량</label>
+                            <input type="number" min="1" class="form-control" th:field="*{itemSq}" id="itemSq">
+                            <p th:if="${#fields.hasErrors('itemSq')}" th:errors="*{itemSq}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemDt" class="form-label">상세설명 </label>
+                            <textarea class="form-control" th:field="*{itemDt}" id="itemDt" rows="3"></textarea>
+                            <p th:if="${#fields.hasErrors('itemDt')}" th:errors="*{itemDt}" class="fieldError"></p>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemSellStatus" class="form-label">상품 판매 상태</label>
+                            <select th:field="*{itemSellStatus}" id="itemSellStatus" class="form-select"
+                                    aria-label="Default select example">
+                                <option value="SELL">판매중</option>
+                                <option value="SOLD_OUT">품절</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemCategory1" class="form-label">1차 카테고리</label>
+                            <select th:field="*{itemCategory1}" id="itemCategory1" class="form-select"
+                                    aria-label="Default select example">
+                                <option value="DOG">강아지</option>
+                                <option value="CAT">고양이</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemCategory2" class="form-label">2차 카테고리</label>
+                            <select th:field="*{itemCategory2}" id="itemCategory2" class="form-select"
+                                    aria-label="Default select example">
+                                <option value="FEED">사료</option>
+                                <option value="TREAT">간식</option>
+                                <option value="PRODUCT">용품</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemCategory3" class="form-label">3차 카테고리</label>
+                            <select th:field="*{itemCategory3}" id="itemCategory3" class="form-select"
+                                    aria-label="Default select example">
+                                <option value="UNDERONE">1세 미만</option>
+                                <option value="ONETOSEVEN">1-7세</option>
+                                <option value="UPSEVEN">7세 이상</option>
+                                <option value="GUM">껌</option>
+                                <option value="BONE">뼈간식</option>
+                                <option value="SUPPLE">영양/기능</option>
+                                <option value="WALK">산책용품</option>
+                                <option value="POOP">배변용품</option>
+                                <option value="APPAREL">의류</option>
+                                <option value="SNACK">간식 파우치</option>
+                                <option value="CAN">간식 캔</option>
+                                <option value="TOWER">캣타워/캣휠</option>
+                                <option value="SCRATCHER">스크래쳐</option>
+                                <option value="LITTER">모래/화장실</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="itemCategory4" class="form-label">4차 카테고리</label>
+                            <select th:field="*{itemCategory4}" id="itemCategory4" class="form-select"
+                                    aria-label="Default select example">
+                                <option value="DRY">건식사료</option>
+                                <option value="WET">습식사료</option>
+                                <option value="CHICKEN">닭</option>
+                                <option value="DUCK">오리</option>
+                                <option value="COW">소</option>
+                                <option value="PIG">돼지</option>
+                                <option value="SHEEP">양</option>
+                                <option value="DEER">사슴</option>
+                                <option value="MULTI">종합</option>
+                                <option value="DIGESTIVE">장/소화</option>
+                                <option value="COAT">피부/피모</option>
+                                <option value="TEAR">눈/눈물</option>
+                                <option value="HARNESS">하네스</option>
+                                <option value="COLLAR">목줄</option>
+                                <option value="LEASH">리드줄</option>
+                                <option value="NIGHT">야간산책용품</option>
+                                <option value="PAD">패드</option>
+                                <option value="TRAY">배변판</option>
+                                <option value="BAG">배변봉투</option>
+                                <option value="TSTHIRT">티셔츠</option>
+                                <option value="DRESS">원피스</option>
+                                <option value="WINTER">겨울 의류</option>
+                                <option value="SUMMER">여름 의류</option>
+                                <option value="SQUEEZE">짜먹는 간식</option>
+                                <option value="POUCH">파우치</option>
+                                <option value="MEATS">육류</option>
+                                <option value="FISH">생선</option>
+                                <option value="KITTEN">키튼(1세 미만)</option>
+                                <option value="ALLAGES">전연령</option>
+                                <option value="URIN">신장/비뇨계</option>
+                                <option value="TEETH">구강/치아</option>
+                                <option value="HAIRBALL">헤어볼</option>
+                                <option value="TOWER">캣타워</option>
+                                <option value="WHEEL">캣폴/캣휠</option>
+                                <option value="FLAT">평판형</option>
+                                <option value="VERTICAL">수직형</option>
+                                <option value="HOUSE">하우스형</option>
+                                <option value="SOFA">소파형</option>
+                                <option value="BENTO">벤토나이트</option>
+                                <option value="CASSAVA">카사바/천연모래</option>
+                                <option value="OPEN">오픈형 화장실</option>
+                                <option value="HOOD">후드형 화장실</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row  main imgpreview">
+
+                        </div>
+                        <div class="row row-cols-md-3 imgpreviewinput imgpreview">
+
+                        </div>
+
+                        <div class="mb-3 imgA">
+                            <label for="formFile" class="form-label">대표 이미지</label>
+                            <input class="form-control imgInput mainimg" id="formFile" accept="image/*"
+                                   name="multipartFile" type="file">
+
+                            <label for="formFiled" class="form-label">상세 이미지</label>
+                            <input class="form-control imgInput" id="formFiled" accept="image/*" name="multipartFile"
+                                   type="file">
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-dark">저장</button>
+                        <button type="button" class="btn btn-dark listbtn">목록</button>
+                        <script>
+                            $(".listbtn").on("click", function () {
+                                location.href = "/admin/item/adminlist";
+                            })
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+</th:block>
+
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            let msg = [[${msg}]]
+            if (msg != null) {
+                alert(msg)
+            }
+
+
+            $("form").on("submit", function (e) {
+                if (itemNmValid()) {
+                    return false
+                }
+                if ($(".main").find('input:eq(0)') == "") {
+                    alert("대표 이미지를 넣어주세요")
+
+                    return false
+                }
+
+            })
+
+            function itemNmValid() {
+                let itemNmVal = $("#itemNm").val()
+                if (itemNmVal.length < 2 || itemNmVal.length > 50) {
+                    alert("이름을 입력해주세요")
+                    alert($(".imgInput").first().val())
+                    return true
+                }
+            }
+
+            $(".imgpreview").on("click", "button", function () {
+
+                $(this).parent().remove()
+
+            })
+
+            bindDomEvent()
+
+            function bindDomEvent() {
+                $(".imgA").on("change", "input", function () {
+                    let fileName = $(this).val().split("\\").pop();
+
+                    let fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+                    fileExt = fileExt.toLowerCase()
+
+                    if (fileExt != "jpg" && fileExt != "jpeg" &&
+                        fileExt != "gif" && fileExt != "png" && fileExt != "bmp") {
+
+                        $(this).val("")
+                        alert("이미지 파일만 넣어주세요")
+                        return false;
+                    }
+
+                    if (this.classList.contains("mainimg")) {
+                        console.log("이건 대표이미지 인풋입니다.")
+                        readURL(this);
+                        $(".mainimg").val()
+
+                    } else {
+                        readURL1(this);
+                    }
+
+                })
+            }
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        let inputtag = document.createElement("input")
+
+                        inputtag.type = "file"
+                        inputtag.name = "multipartFile"
+
+                        const dataTranster = new DataTransfer();
+                        const fileDatas = Array.from(input.files);
+
+                        fileDatas.forEach(file => dataTranster.items.add(file));
+                        inputtag.files = dataTranster.files;
+
+                        let str1 = ` <div class="preview col">
+                                        <img width="100%" src="${e.target.result}">
+                                        <button type='button' class='bb'>취소</button>
+                                    </div>`
+                        $(".main").html(str1)
+                        $(".main").find('div:eq(0)').append(inputtag)
+                        $(".main").find('input').hide()
+                        $(".imgInput").val("")
+
+                    };
+                    reader.readAsDataURL(input.files[0]);
+
+                }
+            }
+
+            function readURL1(input) {
+                if (input.files && input.files[0]) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        let inputtag = document.createElement("input")
+                        inputtag.type = "file"
+                        inputtag.name = "multipartFile"
+
+                        const dataTranster = new DataTransfer();
+                        const $fileDatas = Array.from(input.files);
+                        $fileDatas.forEach(file => dataTranster.items.add(file));
+                        inputtag.files = dataTranster.files;
+
+                        let str1 = ` <div class="preview col">
+                                        <img width="100%" src="${e.target.result}">
+                                        <button type='button' class='bb'>취소</button>
+                                     </div>`
+                        $(".imgpreviewinput").prepend(str1)
+                        $(".imgpreviewinput").find('div:eq(0)').prepend(inputtag)
+                        $(".imgpreviewinput").find('input:eq(0)').hide()
+
+                        $(".imgInput").val("")
+
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        })
+
+    </script>
+
+</th:block>
+
+</body>
+</html>
