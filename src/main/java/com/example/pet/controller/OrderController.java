@@ -60,13 +60,18 @@ public class OrderController {
                             Principal principal, Model model){
 
         if (principal==null){
+            log.info("로그인이 필요합니다.");
+
             return "redirect:/member/login";
         }
 
-        Pageable pageable = PageRequest.of( page.isPresent() ? page.get() : 0,  4);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,4);
         log.info(pageable);
 
         String identity = principal.getName();
+        if (identity == null){
+            return "redirect:/member/login";
+        }
 
         Page<OrderHistDTO> orderHistDTOPage =
                 orderService.getOrderList(identity, pageable);

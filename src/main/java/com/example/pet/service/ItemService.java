@@ -64,7 +64,7 @@ public class ItemService {
         return itemDTO;
     }
 
-    public ItemDTO read(Long id, String email) {
+    public ItemDTO read(Long id, String identity) {
 
         Item item =
                 itemRepository.findById(id).orElseThrow(EntityNotFoundException::new);
@@ -76,11 +76,11 @@ public class ItemService {
 
     }
 
-    public PageResponseDTO<ItemDTO> list(PageRequestDTO pageRequestDTO, String email) {
+    public PageResponseDTO<ItemDTO> list(PageRequestDTO pageRequestDTO, String identity) {
 
         Pageable pageable = pageRequestDTO.getPageable("id");
         Page<Item> items =
-                itemRepository.getAdminItemPage(pageRequestDTO, pageable, email);
+                itemRepository.getAdminItemPage(pageRequestDTO, pageable, identity);
         List<ItemDTO> itemDTOPage =
                 items.getContent().stream().map(item -> modelMapper.map(item, ItemDTO.class))
                         .collect(Collectors.toList());

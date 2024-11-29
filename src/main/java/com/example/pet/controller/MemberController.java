@@ -131,11 +131,6 @@ public class MemberController {
 
     }
 
-    @GetMapping("/reserve")
-    public String memberReserve(Principal principal, Model model) {
-
-        return "member/reserve";
-    }
 
 }
 
