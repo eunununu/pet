@@ -11,7 +11,9 @@ public interface ItemsearchRepository {
 
     Page<Item> getAdminItemPage(PageRequestDTO pageRequestDTO, Pageable pageable, String email);
 
-
     Page<Item> getAdminItemPage(PageRequestDTO pageRequestDTO, Pageable pageable);
+
+    Page<Item> getAdminItemPageMain(PageRequestDTO pageRequestDTO, Pageable pageable);
+
 
 }

@@ -37,7 +37,7 @@ public class MainController {
         pageRequestDTO.setCategory1("DOG");
         pageRequestDTO.setCategory2("FEED");
 
-        PageResponseDTO<ItemDTO> pageResponseDTO = itemService.mainlist(pageRequestDTO);
+        PageResponseDTO<ItemDTO> pageResponseDTO = itemService.maindog(pageRequestDTO);
 
         model.addAttribute("pageResponseDTO", pageResponseDTO);
 
@@ -51,7 +51,7 @@ public class MainController {
         pageRequestDTO.setCategory1("CAT");
         pageRequestDTO.setCategory2("FEED");
 
-        PageResponseDTO<ItemDTO> pageResponseDTO = itemService.mainlist(pageRequestDTO);
+        PageResponseDTO<ItemDTO> pageResponseDTO = itemService.maincat(pageRequestDTO);
 
         model.addAttribute("pageResponseDTO", pageResponseDTO);
 

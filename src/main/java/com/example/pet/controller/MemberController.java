@@ -94,7 +94,7 @@ public class MemberController {
         return "member/list";
     }
 
-    @PostMapping("/mypage")
+    @GetMapping("/mypage")
     @PreAuthorize("isAuthenticated()")
     public String memberRead(Principal principal, Model model) {
 
@@ -104,7 +104,7 @@ public class MemberController {
         return "member/mypage";
     }
 
-    @PostMapping("/modify")
+    @GetMapping("/modify")
     public String memberModify(@Valid MemberDTO memberDTO, BindingResult bindingResult,
                                Principal principal, Model model) {
 
@@ -131,7 +131,7 @@ public class MemberController {
 
     }
 
-    @PostMapping("/reserve")
+    @GetMapping("/reserve")
     public String memberReserve(Principal principal, Model model) {
 
         return "member/reserve";

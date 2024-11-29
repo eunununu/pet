@@ -139,9 +139,49 @@ public class ItemService {
 
         Pageable pageable = pageRequestDTO.getPageable("id");
 
+        Page<Item> items  = itemRepository.getAdminItemPageMain(pageRequestDTO, pageable);
 
 
-        Page<Item> items  = itemRepository.getAdminItemPage( pageRequestDTO, pageable);
+        List<ItemDTO> itemDTOPage =
+                items.getContent().stream().map(item -> modelMapper.map(item, ItemDTO.class))
+                        .collect(Collectors.toList());
+
+        PageResponseDTO<ItemDTO> itemDTOPageResponseDTO
+                = PageResponseDTO.<ItemDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(itemDTOPage)
+                .total((int) items.getTotalElements())
+                .build();
+
+        return itemDTOPageResponseDTO;
+    }
+
+    public PageResponseDTO<ItemDTO> maindog(PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable = pageRequestDTO.getPageable("id");
+
+        Page<Item> items  = itemRepository.getAdminItemPage(pageRequestDTO, pageable);
+
+
+        List<ItemDTO> itemDTOPage =
+                items.getContent().stream().map(item -> modelMapper.map(item, ItemDTO.class))
+                        .collect(Collectors.toList());
+
+        PageResponseDTO<ItemDTO> itemDTOPageResponseDTO
+                = PageResponseDTO.<ItemDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(itemDTOPage)
+                .total((int) items.getTotalElements())
+                .build();
+
+        return itemDTOPageResponseDTO;
+    }
+
+    public PageResponseDTO<ItemDTO> maincat(PageRequestDTO pageRequestDTO) {
+
+        Pageable pageable = pageRequestDTO.getPageable("id");
+
+        Page<Item> items  = itemRepository.getAdminItemPage(pageRequestDTO, pageable);
 
 
         List<ItemDTO> itemDTOPage =

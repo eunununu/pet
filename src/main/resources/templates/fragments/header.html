@@ -4,84 +4,64 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <style>
-        .search-bar {
-            width: 300px;
-        }
-
-        .search-button {
-            width: 100px;
-        }
-
-        .nav-pills {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .navbar .search-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-item {
-            width: 120px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 
 <th:block th:fragment="header">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="../../static/dogcat.jpg" alt="Logo"/>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <ul class="nav nav-pills me-auto mb-2 mb-lg-0 d-flex align-items-center gap-3">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">홈</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            동물 선택
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">강아지</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">고양이</a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        동물 선택
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/dog">강아지</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/cat">고양이</a></li>
 
-                    <div class="search-container">
-                        <li class="nav-item">
-                            <div class="input-group search-bar">
-                                <input class="form-control" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
-                                <button class="btn btn-outline-success search-button" type="submit">찾기</button>
-                            </div>
-                        </li>
-                    </div>
+                    </ul>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">회원가입</a>
-                    </li>
-                </ul>
-            </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        마이 페이지
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">장바구니</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/member/reserve">구매이력</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/member/mypage">내 정보</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/">로그아웃</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/member/login">로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/member/join">회원가입</a>
+                </li>
+
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">찾기</button>
+            </form>
         </div>
-    </nav>
+    </div>
+</nav>
+
 </th:block>
+
 
 </body>
 </html>
