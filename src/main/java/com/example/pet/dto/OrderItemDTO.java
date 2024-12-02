@@ -21,4 +21,11 @@ public class OrderItemDTO {
 
     private String imgUrl;
 
+    private int pkid;
+
+    public OrderItemDTO setPkid(int pkid){
+        this.pkid = pkid;
+        return this;
+    }
+
 }

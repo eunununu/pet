@@ -49,7 +49,7 @@ public class MemberDTO {
         member.setAddress(memberDTO.getAddress());
         member.setIdentity(memberDTO.getIdentity());
         member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
-        member.setRole(Role.ADMIN);
+        member.setRole(Role.USER);
 
         return member;
     }

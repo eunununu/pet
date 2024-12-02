@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,6 +83,19 @@ public class OrderController {
         model.addAttribute("maxPage", 5);
 
         return "order/orderHist";
+    }
 
+    @PostMapping("/order/{orderId}/cancel")
+    public ResponseEntity cancelOrder(
+            @PathVariable("orderId") Long orderId, Principal principal){
+
+        if (!orderService.validateOrder(orderId, principal.getName())){
+
+            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+
+        orderService.cancelOrder(orderId);
+
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 }

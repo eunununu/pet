@@ -14,31 +14,35 @@
         <div class="col-8 offset-2">
             <h1>회원가입</h1>
 
-            <form class="row g-3 formA" action="/member/join" method="post" th:object="${memberDTO}">
+            <form class="row g-3 formA" action="/member/joinA" method="post" th:object="${memberDTO}">
                 <div class="col-12">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="이름을 입력해주세요" required>
+                    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="이름을 입력해주세요"
+                           required>
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError"></p>
                     <h1 class="name"></h1>
                 </div>
 
                 <div class="col-12">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="이메일을 입력해주세요" required>
+                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="이메일을 입력해주세요"
+                           required>
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError"></p>
 
                 </div>
 
                 <div class="col-md-6">
                     <label for="identity" class="form-label">ID</label>
-                    <input type="text" th:field="*{identity}" class="form-control" id="identity" placeholder="아이디를 입력해주세요" required>
+                    <input type="text" th:field="*{identity}" class="form-control" id="identity"
+                           placeholder="아이디를 입력해주세요" required>
                     <p th:if="${#fields.hasErrors('identity')}" th:errors="*{identity}" class="fieldError"></p>
 
                 </div>
 
                 <div class="col-md-6">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="비밀번호를 입력해주세요" required>
+                    <input type="password" th:field="*{password}" class="form-control" id="password"
+                           placeholder="비밀번호를 입력해주세요" required>
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError"></p>
 
                 </div>
@@ -51,7 +55,7 @@
 
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck1" data-bs-toggle="modal" data-bs-target="#termsModal1" required>
+                        <input class="form-check-input" type="checkbox" id="gridCheck1" data-bs-toggle="modal" data-bs-target="#termsModal1">
                         <label class="form-check-label" for="gridCheck1">
                             (필수)본인은 만 14세 이상입니다.
                         </label>
@@ -158,8 +162,8 @@
                 </div>
 
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-secondary" onclick="window.location.href='/'">돌아가기</button>
-                    <button type="submit" class="btn btn-primary">가입하기</button>
+                    <button type="submit" class="btn btn-primary formbtn">가입하기</button>
+                    <button type="submit" class="btn btn-primary">로그인</button>
                 </div>
 
             </form>

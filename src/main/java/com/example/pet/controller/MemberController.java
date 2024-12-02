@@ -57,6 +57,36 @@ public class MemberController {
         }
     }
 
+
+    @GetMapping("/joinA")
+    public String memberJoinA(Model model, Principal principal) {
+
+        if (principal != null) {
+            return "redirect:/member/mypage";
+        }
+
+        model.addAttribute("memberDTO", new MemberDTO());
+        return "member/joinA";
+    }
+
+    @PostMapping("/joinA")
+    public String memberJoinPostA(@Valid MemberDTO memberDTO, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "member/joinA";
+        }
+
+        try {
+            memberService.saveMember1(memberDTO);
+
+            return "redirect:/member/login";
+
+        } catch (IllegalStateException e) {
+            model.addAttribute("msg", e.getMessage());
+            return "member/joinA";
+        }
+    }
+
     @GetMapping("/login")
     public String loginMember(Principal principal) {
         if (principal != null) {
@@ -67,18 +97,20 @@ public class MemberController {
     }
 
 
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request, Model model) {
-        request.getSession().invalidate();
-        model.addAttribute("msg", "로그아웃 되었습니다.");
-        return "redirect:/";
-    }
+
 
     @GetMapping("/findid")
     public String memberFindid() {
 
         return "member/findid";
     }
+    @PostMapping("/findid")
+    public String memberFindid(String email, String name, Model model) {
+
+
+        return "";
+    }
+
 
     @GetMapping("/findpwd")
     public String memberFindpwd() {

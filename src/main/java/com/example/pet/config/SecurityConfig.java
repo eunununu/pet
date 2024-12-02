@@ -27,6 +27,7 @@ public class SecurityConfig {
                         authorization -> authorization
                                 .requestMatchers("/member/login", "/member/login/**").permitAll()
                                 .requestMatchers("/item/register").authenticated()
+                                .requestMatchers("/member/mypage").authenticated()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/member/list").hasRole("ADMIN")
                                 .requestMatchers("/order/**").authenticated()

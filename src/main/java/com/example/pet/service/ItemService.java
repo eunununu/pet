@@ -79,8 +79,14 @@ public class ItemService {
     public PageResponseDTO<ItemDTO> list(PageRequestDTO pageRequestDTO, String identity) {
 
         Pageable pageable = pageRequestDTO.getPageable("id");
-        Page<Item> items =
-                itemRepository.getAdminItemPage(pageRequestDTO, pageable, identity);
+        Page<Item> items;
+
+        if (identity == null){
+            items = itemRepository.findAll(pageable);
+        }else {
+            items = itemRepository.getAdminItemPage(pageRequestDTO, pageable, identity);
+        }
+
         List<ItemDTO> itemDTOPage =
                 items.getContent().stream().map(item -> modelMapper.map(item, ItemDTO.class))
                         .collect(Collectors.toList());

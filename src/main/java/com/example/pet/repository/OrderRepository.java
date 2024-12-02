@@ -16,4 +16,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select count(o) from Order o where o.member.identity = :identity")
     public Long totalCount(String identity);
 
+    public List<Order> findByMemberIdentityOrderByOrderDateDesc (String identity, Pageable pageable);
+
 }

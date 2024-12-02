@@ -12,11 +12,13 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,6 +33,39 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
+
+    public boolean validateOrder(Long orderId, String identity){
+
+        Member member =
+                memberRepository.findByIdentity(identity);
+
+        Order order =
+                orderRepository.findById(orderId)
+                        .orElseThrow(EntityNotFoundException::new);
+
+        if (!StringUtils.equals(member.getIdentity(), order.getMember().getIdentity())){
+            return false;
+        }
+
+        return true;
+    }
+
+    public void cancelOrder(Long orderId){
+
+        Order order =
+                orderRepository.findById(orderId)
+                        .orElseThrow(EntityNotFoundException::new);
+
+        order.setOrderStatus(OrderStatus.CANCEL);
+
+        for (OrderItem orderItem : order.getOrderItemList()){
+            orderItem.getItem().setItemSq(
+                    orderItem.getItem().getItemSq() + orderItem.getOrderQt()
+            );
+        }
+    }
+
+
 
     public Long order(OrderDTO orderDTO, String identity) {
 

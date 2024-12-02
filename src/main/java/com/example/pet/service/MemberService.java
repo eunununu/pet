@@ -1,5 +1,6 @@
 package com.example.pet.service;
 
+import com.example.pet.constant.Role;
 import com.example.pet.dto.MemberDTO;
 import com.example.pet.entity.Member;
 import com.example.pet.repository.MemberRepository;
@@ -44,6 +45,18 @@ public class MemberService implements UserDetailsService {
 
         return member;
     }
+    public Member saveMember1(MemberDTO memberDTO) {
+
+        validateDuplicateMember(memberDTO.getEmail(), memberDTO.getIdentity());
+
+        Member member = memberDTO.dtoToEntity(memberDTO);
+
+        member.setRole(Role.ADMIN);
+        member = memberRepository.save(member);
+
+
+        return member;
+    }
 
     private void validateDuplicateMember(String email, String identity) {
 
@@ -74,6 +87,11 @@ public class MemberService implements UserDetailsService {
         member.setIdentity(memberDTO.getIdentity());
 
         return memberRepository.save(member);
+    }
+
+    public String adsfas(String email, String name){
+
+        return  memberRepository.findEmail(email, name);
     }
 
 }

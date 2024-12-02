@@ -35,7 +35,8 @@ public class ItemController {
 
         }
         if (principal != null) {
-
+            log.info("현재 로그인한 사람");
+            log.info(principal.getName());
         }
         model.addAttribute("itemDTO", new ItemDTO());
 
@@ -70,11 +71,10 @@ public class ItemController {
             return "/item/register";
         }
         try {
-
             Long savedItemid =
                     itemService.saveItem(itemDTO, multipartFile);
 
-            log.info("상품등록이 되었습니다.");
+            log.info("상품이 등록되었습니다.");
 
             return "redirect:/admin/item/adminread?id=" + savedItemid;
 
@@ -92,7 +92,8 @@ public class ItemController {
     public String adminread(Long id, Model model, RedirectAttributes redirectAttributes) {
 
         try {
-            ItemDTO itemDTO = itemService.read(id);
+            ItemDTO itemDTO =
+                    itemService.read(id);
 
             model.addAttribute("itemDTO", itemDTO);
 
@@ -118,7 +119,14 @@ public class ItemController {
     }
 
     @GetMapping("/item/list")
-    public String itemList(PageRequestDTO pageRequestDTO, Model model) {
+    public String itemList(PageRequestDTO pageRequestDTO, Model model, Principal principal) {
+
+        String identity = (principal != null) ? principal.getName() : null;
+
+        PageResponseDTO<ItemDTO> pageResponseDTO =
+                itemService.list(pageRequestDTO, principal.getName());
+
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
         return "item/list";
     }
