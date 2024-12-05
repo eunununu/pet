@@ -17,7 +17,7 @@ public class OrderItemDTO {
 
     private int orderPr;
 
-    private int orderQt;
+    private int count;
 
     private String imgUrl;
 

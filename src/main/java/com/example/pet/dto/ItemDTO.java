@@ -30,7 +30,7 @@ public class ItemDTO {
 
     @NotNull
     @PositiveOrZero
-    private int itemPr;
+    private int price;
 
     @NotNull
     @PositiveOrZero

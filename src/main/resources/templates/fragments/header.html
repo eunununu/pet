@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,11 +15,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">홈</a>
+        <a class="navbar-brand" href="/">Home</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" style="width: 100px;">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         동물 선택
                     </a>
@@ -26,34 +27,55 @@
                         <li><a class="dropdown-item" href="/dog">강아지</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/cat">고양이</a></li>
-
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        마이 페이지
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">장바구니</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/order/orderHist">구매이력</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/member/mypage">내 정보</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/">로그아웃</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/member/login">로그인</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/member/join">회원가입</a>
-                </li>
+                <th:block sec:authorize="hasRole('ROLE_USER')">
+                    <li class="nav-item dropdown" style="width: 200px;">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            마이 페이지 <span th:text="${#authentication.principal.username}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/cart/cartList">장바구니</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/orders">구매이력</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/member/mypage">내 정보</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
+                        </ul>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="isAnonymous()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/login">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/join">회원가입</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item dropdown" style="width: 100px;">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            관리자
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/item/register">상품 등록</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/admin/item/adminlist">상품 목록</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/member/list">회원 관리</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
+                        </ul>
+                    </li>
+                </th:block>
 
             </ul>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="검색어를 입력해주세요." aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="검색어를 입력해주세요." aria-label="Search" style="width: 400px;">
                 <button class="btn btn-outline-success" type="submit">찾기</button>
             </form>
         </div>

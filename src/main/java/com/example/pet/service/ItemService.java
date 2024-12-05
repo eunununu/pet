@@ -37,7 +37,7 @@ public class ItemService {
         Item item = modelMapper.map(itemDTO, Item.class);
 
         item.setItemNm(itemDTO.getItemNm());
-        item.setItemPr(itemDTO.getItemPr());
+        item.setPrice(itemDTO.getPrice());
         item.setItemDt(itemDTO.getItemDt());
         item.setItemSellStatus(itemDTO.getItemSellStatus());
         item.setItemSq(itemDTO.getItemSq());
@@ -107,7 +107,7 @@ public class ItemService {
                         .orElseThrow(EntityNotFoundException::new);
 
         item.setItemNm(itemDTO.getItemNm());
-        item.setItemPr(itemDTO.getItemPr());
+        item.setPrice(itemDTO.getPrice());
         item.setItemDt(itemDTO.getItemDt());
         item.setItemSellStatus(itemDTO.getItemSellStatus());
         item.setItemSq(itemDTO.getItemSq());

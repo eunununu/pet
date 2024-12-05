@@ -97,8 +97,6 @@ public class MemberController {
     }
 
 
-
-
     @GetMapping("/findid")
     public String memberFindid() {
 
@@ -108,7 +106,7 @@ public class MemberController {
     public String memberFindid(String email, String name, Model model) {
 
 
-        return "";
+        return "member/findid";
     }
 
 

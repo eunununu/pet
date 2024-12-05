@@ -19,5 +19,5 @@ public class OrderDTO {
 
     @Min(value = 1, message = "최소 주문 수량은 1개입니다.")
     @Max(value = 99, message = "최대 주문 수량은 99개입니다.")
-    private int orderQt;
+    private int count;
 }

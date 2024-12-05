@@ -94,4 +94,9 @@ public class MemberService implements UserDetailsService {
         return  memberRepository.findEmail(email, name);
     }
 
+    public String adsfasf(String identity, String name){
+
+        return  memberRepository.findIdentity(identity, name);
+    }
+
 }

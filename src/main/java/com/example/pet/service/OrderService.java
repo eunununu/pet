@@ -60,7 +60,7 @@ public class OrderService {
 
         for (OrderItem orderItem : order.getOrderItemList()){
             orderItem.getItem().setItemSq(
-                    orderItem.getItem().getItemSq() + orderItem.getOrderQt()
+                    orderItem.getItem().getItemSq() + orderItem.getCount()
             );
         }
     }
@@ -69,19 +69,21 @@ public class OrderService {
 
     public Long order(OrderDTO orderDTO, String identity) {
 
+        log.info(orderDTO);
+
         Item item = itemRepository.findById(orderDTO.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
 
         Member member = memberRepository.findByIdentity(identity);
 
-        if (item.getItemSq() >= orderDTO.getOrderQt()) {
+        if (item.getItemSq() >= orderDTO.getCount()) {
 
             OrderItem orderItem = new OrderItem();
             orderItem.setItem(item);
-            orderItem.setOrderQt(orderDTO.getOrderQt());
-            orderItem.setOrderPr(item.getItemPr());
+            orderItem.setCount(orderDTO.getCount());
+            orderItem.setOrderPr(item.getPrice());
 
-            item.setItemSq(item.getItemSq() - orderDTO.getOrderQt());
+            item.setItemSq(item.getItemSq() - orderDTO.getCount());
 
             Order order = new Order();
             order.setMember(member);
@@ -112,9 +114,8 @@ public class OrderService {
         for (Order order : orderList){
 
             OrderHistDTO orderHistDTO = new OrderHistDTO();
-
             orderHistDTO.setOrderId(order.getId());
-            orderHistDTO.setOrderDate(orderHistDTO.getOrderDate().toString());
+            orderHistDTO.setOrderDate(orderHistDTO.getOrderDate());
             orderHistDTO.setOrderStatus(order.getOrderStatus());
 
             List<OrderItem> orderItemList = order.getOrderItemList();
@@ -126,7 +127,7 @@ public class OrderService {
                 orderItemDTO.setId(order.getId());
                 orderItemDTO.setItemNm(orderItem.getItem().getItemNm());
                 orderItemDTO.setOrderPr(orderItem.getOrderPr());
-                orderItemDTO.setOrderQt(orderItem.getOrderQt());
+                orderItemDTO.setCount(orderItem.getCount());
 
                 List<ItemImg> itemImgList = orderItem.getItem().getItemImgList();
 
@@ -144,5 +145,6 @@ public class OrderService {
         return new PageImpl<OrderHistDTO>(orderHistDTOList, pageable, totalCount);
 
     }
+
 
 }

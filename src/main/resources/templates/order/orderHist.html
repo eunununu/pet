@@ -24,7 +24,7 @@
             <div class="ms-3">
 
                 <th:block  th:if="${orderHistDTO.orderStatus.name() == 'ORDER'}">
-                    <button type="button" th:value="${orderHistDTO.orderId}" class="cancelbtn"> 주문 취소</button>
+                    <button type="button" th:value="${orderHistDTO.orderId}" class="cancelbtn">주문 취소</button>
                 </th:block>
                 <th:block th:unless="${orderHistDTO.orderStatus.name() == 'ORDER'}">
                     <h4>(취소 완료)</h4>
@@ -42,7 +42,7 @@
                             <div class="col">
                                 <strong><span th:text="${orderItemDTO.itemNm}" ></span></strong>
                                 <span th:text="${orderItemDTO.orderPr} + '원'"></span>
-                                <span th:text="${orderItemDTO.orderQt} + '개'"></span>
+                                <span th:text="${orderItemDTO.count} + '개'"></span>
                             </div>
 
                         </th:block>

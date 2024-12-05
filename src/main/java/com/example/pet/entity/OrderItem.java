@@ -29,7 +29,7 @@ public class OrderItem extends BaseEntity {
 
     private int orderPr;
 
-    private int orderQt;
+    private int count;
 
 
 }
