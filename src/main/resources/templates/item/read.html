@@ -14,6 +14,9 @@
         <div class="row">
             <div class="col">
                 <div class="row">
+
+                    <input type="hidden" th:field="*{id}" id="itemid">
+
                     <div class="col">
                         <img th:src="${itemDTO.itemImgDTOList.get(0).imgUrl}" class="card-img-top"
                              th:alt="${itemDTO.getItemImgDTOList().get(0).oriImgName}">
@@ -41,33 +44,33 @@
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="price" class="form-label">가격</label>
-                                        <input type="number" min="0" class="form-control" th:field="*{itemPr}"
+                                        <input type="number" min="0" class="form-control" th:field="*{price}"
                                                id="price" readonly>
-                                        <p th:if="${#fields.hasErrors('itemPr')}" th:errors="*{itemPr}"
+                                        <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
                                            class="fieldError"></p>
 
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <label for="stockNumber" class="form-label">수량</label>
+                                        <label for="count" class="form-label">수량</label>
                                         <input type="number" min="0" class="form-control" name="count" value="1"
-                                               id="stockNumber">
+                                               id="count">
 
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="totalPrice" class="form-label">결제 금액</label>
-                                        <input type="number" min="0" class="form-control" name="count" id="totalPrice">
+                                        <input type="number" min="0" class="form-control"  id="totalPrice">
 
                                     </div>
                                 </div>
 
                                 <th:block th:if="${itemDTO.itemSellStatus.name() == 'SELL'}">
                                     <div class="col-12 text-center">
-                                        <button class="btn btn-danger">장바구니</button>
-                                        <button class="btn btn-danger">주문하기</button>
+                                        <button type="button" th:value="${itemDTO.id}" class="btn btn-danger cartBtn">장바구니</button>
+                                        <button type="button" class="btn btn-danger" onclick="order()">주문하기</button>
                                     </div>
                                 </th:block>
                                 <th:block th:if="${itemDTO.itemSellStatus.name() == 'SOLD_OUT'}">
@@ -88,6 +91,77 @@
             </div>
         </div>
     </form>
+
+    <script th:inline="javascript">
+
+        $(document).ready(function (){
+            $(".cartBtn").on("click", function (){
+              let itemid = $(this).val()
+              let count = $("#count").val()
+              addcart(itemid, count)
+            })
+        })
+
+        function addcart(itemid, count){
+
+            $.ajax({
+
+                url : "/cart",
+                type : "post",
+                data : {itemid : itemid, count : count},
+                success : function (result){
+                    alert("장바구니에 상품이 담겼습니다.")
+                    console.log(result)
+                },
+                error : function (result, status, error){
+                    console.log(result)
+                    if (result.status == '401'){
+                        alert("로그인 후 이용해주세요")
+                        location.href = "/member/login";
+                    }else {
+                        alert(result.responseText);
+                    }
+                }
+            })
+        }
+
+        function order(){
+            let url = "/order";
+            let paramDate = {
+                itemId: $("#itemid").val(),
+                count: $("#count").val()
+            }
+
+            console.log(paramDate)
+
+            $.ajax({
+                url : url,
+                type: "post",
+                data: paramDate,
+                success : function (result){
+                    console.log(result)
+                    alert(result)
+                    location.href = "/orders";
+                },
+                error : function (result, status, error){
+                    console.log(result)
+                    console.log(result.status)
+
+                    if (result.status == '401'){
+                        alert("로그인 후 이용해주세요.");
+                        location.href = "/member/login"
+                    }
+                }
+
+
+            })
+        }
+
+
+
+
+    </script>
+
 </th:block>
 
 </body>

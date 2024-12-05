@@ -17,148 +17,28 @@
             <form class="row g-3 formA" action="/member/joinA" method="post" th:object="${memberDTO}">
                 <div class="col-12">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="이름을 입력해주세요"
-                           required>
+                    <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="관리자 이름을 입력해주세요" required>
                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError"></p>
                     <h1 class="name"></h1>
                 </div>
 
                 <div class="col-12">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="이메일을 입력해주세요"
-                           required>
+                    <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="이메일을 입력해주세요" required>
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError"></p>
-
                 </div>
 
                 <div class="col-md-6">
                     <label for="identity" class="form-label">ID</label>
-                    <input type="text" th:field="*{identity}" class="form-control" id="identity"
-                           placeholder="아이디를 입력해주세요" required>
+                    <input type="text" th:field="*{identity}" class="form-control" id="identity" placeholder="아이디를 입력해주세요" required>
                     <p th:if="${#fields.hasErrors('identity')}" th:errors="*{identity}" class="fieldError"></p>
-
                 </div>
 
                 <div class="col-md-6">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" th:field="*{password}" class="form-control" id="password"
-                           placeholder="비밀번호를 입력해주세요" required>
+                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="비밀번호를 입력해주세요" required>
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError"></p>
 
-                </div>
-
-                <div class="col-12">
-                    <label for="addr" class="form-label">Address</label>
-                    <input type="text" th:field="*{address}" class="form-control" id="addr" placeholder="주소를 입력해주세요">
-                </div>
-
-
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck1" data-bs-toggle="modal" data-bs-target="#termsModal1">
-                        <label class="form-check-label" for="gridCheck1">
-                            (필수)본인은 만 14세 이상입니다.
-                        </label>
-                    </div>
-
-                    <div class="modal fade" id="termsModal1" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="termsModalLabel1">약관</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>본인은 만 14세 이상입니다.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="closeModal1">닫기</button>
-                                    <button type="button" class="btn btn-primary" id="agreeModal1">동의</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck2" data-bs-toggle="modal" data-bs-target="#termsModal2" required>
-                        <label class="form-check-label" for="gridCheck2">
-                            (필수)서비스 이용약관 동의
-                        </label>
-                    </div>
-
-                    <div class="modal fade" id="termsModal2" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="termsModalLabel2">약관</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>서비스 이용약관 동의</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="closeModal2">닫기</button>
-                                    <button type="button" class="btn btn-primary" id="agreeModal2">동의</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck3" data-bs-toggle="modal" data-bs-target="#termsModal3" required>
-                        <label class="form-check-label" for="gridCheck3">
-                            (필수)개인정보 수집 및 이용 동의
-                        </label>
-                    </div>
-
-                    <div class="modal fade" id="termsModal3" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="termsModalLabel3">약관</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>개인정보 수집 및 이용 동의</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="closeModal3">닫기</button>
-                                    <button type="button" class="btn btn-primary" id="agreeModal3">동의</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck4" data-bs-toggle="modal" data-bs-target="#termsModal4">
-                        <label class="form-check-label" for="gridCheck4">
-                            (선택)광고성 정보 수신 동의
-                        </label>
-                    </div>
-
-                    <div class="modal fade" id="termsModal4" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="termsModalLabel">약관</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>(선택)광고성 정보 수신 동의</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="closeModal4">닫기</button>
-                                    <button type="button" class="btn btn-primary" id="agreeModal4">동의</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col-12 text-center">
@@ -195,62 +75,6 @@
                 return true;
             }
         }
-
-        $("#gridCheck1").on("change", function () {
-            if ($(this).prop('checked')) {
-                $('#termsModal1').modal('show');
-            }
-        });
-        $("#closeModal1").on("click", function () {
-            $("#gridCheck1").prop('checked', false);
-            $('#termsModal1').modal('hide');
-        });
-        $("#agreeModal1").on("click", function () {
-            $("#gridCheck1").prop('checked', true);
-            $('#termsModal1').modal('hide');
-        });
-
-        $("#gridCheck2").on("change", function () {
-            if ($(this).prop('checked')) {
-                $('#termsModal2').modal('show');
-            }
-        });
-        $("#closeModal2").on("click", function () {
-            $("#gridCheck2").prop('checked', false);
-            $('#termsModal2').modal('hide');
-        });
-        $("#agreeModal2").on("click", function () {
-            $("#gridCheck2").prop('checked', true);
-            $('#termsModal2').modal('hide');
-        });
-
-        $("#gridCheck3").on("change", function () {
-            if ($(this).prop('checked')) {
-                $('#termsModal3').modal('show');
-            }
-        });
-        $("#closeModal3").on("click", function () {
-            $("#gridCheck3").prop('checked', false);
-            $('#termsModal3').modal('hide');
-        });
-        $("#agreeModal3").on("click", function () {
-            $("#gridCheck3").prop('checked', true);
-            $('#termsModal3').modal('hide');
-        });
-
-        $("#gridCheck4").on("change", function () {
-            if ($(this).prop('checked')) {
-                $('#termsModal4').modal('show');
-            }
-        });
-        $("#closeModal4").on("click", function () {
-            $("#gridCheck4").prop('checked', false);
-            $('#termsModal4').modal('hide');
-        });
-        $("#agreeModal4").on("click", function () {
-            $("#gridCheck4").prop('checked', true);
-            $('#termsModal4').modal('hide');
-        });
 
     </script>
 </th:block>

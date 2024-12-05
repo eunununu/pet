@@ -26,7 +26,7 @@ public class Item extends BaseEntity {
     private String itemNm;
 
     @Column(name = "price", nullable = false)
-    private int itemPr;
+    private int price;
 
     @Column(nullable = false)
     private int itemSq;
@@ -50,6 +50,6 @@ public class Item extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ItemCategory4 itemCategory4;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemImg> itemImgList;
 }

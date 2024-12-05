@@ -22,15 +22,15 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemsearchRep
 
     public List<Item> findByItemDtContaining(String itemDt);
 
-    public List<Item> findByItemPrLessThan(Integer itemPr);
+    public List<Item> findByPriceLessThan(Integer itemPr);
 
-    public List<Item> findByItemPrGreaterThan(Integer itemPr);
+    public List<Item> findByPriceGreaterThan(Integer itemPr);
 
-    public List<Item> findByItemPrGreaterThanOrderByItemPrAsc(Integer itemPr);
+    public List<Item> findByPriceGreaterThanOrderByPriceAsc(Integer itemPr);
 
-    public List<Item> findByItemPrGreaterThanEqual(Integer itemPr, Pageable pageable);
+    public List<Item> findByPriceGreaterThanEqual(Integer itemPr, Pageable pageable);
 
-    List<Item> findByItemPrLessThanOrderByItemPrDesc(Integer itemPr);
+    List<Item> findByPriceLessThanOrderByPriceDesc(Integer itemPr);
 
     @Query(value = "select * from Item i where i.item_nm = :itemNm", nativeQuery = true)
     List<Item> nativeQuerySelectwhereNamelike(String itemNm, Pageable pageable);

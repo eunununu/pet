@@ -35,12 +35,15 @@ public class OrderController {
     @PostMapping("/order")
     public ResponseEntity order(@Valid OrderDTO orderDTO, BindingResult bindingResult, Principal principal) {
 
+        log.info("controller : " + orderDTO);
+
         if (bindingResult.hasErrors()) {
             StringBuffer sb = new StringBuffer();
 
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
             for (FieldError fieldError : fieldErrors) {
+                log.info("필드 : " + fieldError.getField() + "메시지 : "+ fieldError.getDefaultMessage());
                 sb.append(fieldError.getDefaultMessage());
             }
             log.info(sb.toString());

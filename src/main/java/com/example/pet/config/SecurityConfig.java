@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorization -> authorization
                                 .requestMatchers("/member/login", "/member/login/**").permitAll()
-                                .requestMatchers("/item/register").authenticated()
+                                .requestMatchers("/cart", "/cartItem").authenticated()
                                 .requestMatchers("/member/mypage").authenticated()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/member/list").hasRole("ADMIN")
