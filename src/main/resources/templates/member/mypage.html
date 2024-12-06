@@ -4,9 +4,32 @@
       layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>내 정보</title>
 </head>
 <body>
-<h1>내 정보</h1>
+<th:block layout:fragment="content">
+
+    <div class="row mt-3">
+        <div class="col">
+            <h3>내 정보</h3>
+            <table class="table">
+                <tr>
+                    <td>아이디</td>
+                    <td th:text="${member.identity}"></td>
+                </tr>
+                <tr>
+                    <td>이름</td>
+                    <td th:text="${member.name}"></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td th:text="${member.email}"></td>
+                </tr>
+            </table>
+            <a href="/member/modify" class="btn btn-primary">내 정보 수정</a>
+        </div>
+    </div>
+
+</th:block>
 </body>
 </html>

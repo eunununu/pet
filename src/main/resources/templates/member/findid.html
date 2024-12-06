@@ -4,9 +4,25 @@
       layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>아이디 찾기</title>
 </head>
 <body>
-아이디 찾기
+<th:block layout:fragment="content">
+
+    <div class="row mt-3">
+        <div class="col">
+            <h3>아이디 찾기</h3>
+            <form action="/member/findid" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <button type="submit" class="btn btn-primary">아이디 찾기</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/member/findpwd'">비밀번호 찾기</button>
+            </form>
+        </div>
+    </div>
+
+</th:block>
 </body>
 </html>

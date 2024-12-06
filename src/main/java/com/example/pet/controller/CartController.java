@@ -2,11 +2,8 @@ package com.example.pet.controller;
 
 import com.example.pet.dto.CartDetailDTO;
 import com.example.pet.dto.CartItemDTO;
-<<<<<<< HEAD
 import com.example.pet.dto.CartOrderDTO;
 import com.example.pet.service.CartItemService;
-=======
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
 import com.example.pet.service.CartService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
-=======
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
-
 import java.security.Principal;
 import java.util.List;
 
@@ -33,20 +26,15 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
-<<<<<<< HEAD
     private final CartItemService cartItemService;
-=======
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
+
 
     @PostMapping("/cart")
     public ResponseEntity order(@Valid CartItemDTO cartItemDTO, BindingResult bindingResult, Principal principal){
 
-<<<<<<< HEAD
         log.info("브라우저에서 넘어온 값 " + cartItemDTO);
         log.info("로그인이 되어 있다면 " + principal);
 
-=======
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
         if (bindingResult.hasErrors()){
 
             StringBuffer sb = new StringBuffer();
@@ -85,7 +73,6 @@ public class CartController {
 
         return "cart/cartList";
     }
-<<<<<<< HEAD
 
     @PostMapping("/cartItem")
     public ResponseEntity modifyCartItem(@Valid CartItemDTO cartItemDTO, BindingResult bindingResult, Principal principal){
@@ -151,6 +138,5 @@ public class CartController {
 
         return new ResponseEntity<Long>(1L, HttpStatus.OK);
     }
-=======
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
+
 }
