@@ -167,6 +167,32 @@ public class MemberController {
 
     }
 
+    @GetMapping("/pwdchange")
+    public String pwdChange(@Valid MemberDTO memberDTO, BindingResult bindingResult, Principal principal, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "member/pwdchange";
+        }
+
+        String email = principal.getName();
+
+        if (!memberDTO.getEmail().equals(email)) {
+            model.addAttribute("msg", "회원 정보가 일치하지 않습니다.");
+            return "member/pwdchange";
+        }
+
+        try {
+            memberService.modifyMember(memberDTO);
+            model.addAttribute("msg", "회원 정보가 수정되었습니다.");
+            return "redirect:/member/mypage";
+
+        } catch (Exception e) {
+            model.addAttribute("msg", e.getMessage());
+            return "member/pwdchange";
+        }
+
+    }
+
 
 }
 

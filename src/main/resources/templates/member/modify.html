@@ -4,9 +4,28 @@
       layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>내 정보 수정</title>
 </head>
 <body>
-회원정보 수정
+<th:block layout:fragment="content">
+
+    <div class="row mt-3">
+        <div class="col">
+            <h3>내 정보 수정</h3>
+            <form action="/member/modify" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">이름</label>
+                    <input type="text" class="form-control" id="name" name="name" value="${user.name}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" class="form-control" id="email" name="email" value="${user.email}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">수정 완료</button>
+            </form>
+        </div>
+    </div>
+
+</th:block>
 </body>
 </html>

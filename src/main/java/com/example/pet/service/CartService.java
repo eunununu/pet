@@ -2,11 +2,8 @@ package com.example.pet.service;
 
 import com.example.pet.dto.CartDetailDTO;
 import com.example.pet.dto.CartItemDTO;
-<<<<<<< HEAD
 import com.example.pet.dto.CartOrderDTO;
 import com.example.pet.dto.OrderDTO;
-=======
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
 import com.example.pet.entity.Cart;
 import com.example.pet.entity.CartItem;
 import com.example.pet.entity.Item;
@@ -30,11 +27,8 @@ import java.util.List;
 @Transactional
 public class CartService {
 
-<<<<<<< HEAD
     private final OrderService orderService;
 
-=======
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
     private final ItemRepository itemRepository;
 
     private final MemberRepository memberRepository;
@@ -91,7 +85,6 @@ public class CartService {
         cartDetailDTOList = cartItemRepository.findCartDetailDTOList(cart.getId());
 
         return cartDetailDTOList;
-<<<<<<< HEAD
     }
 
     public boolean validateCartItem(Long cartItemId, String identity){
@@ -142,10 +135,6 @@ public class CartService {
         }
         return orderId;
     }
-=======
-
-    }
 
 
->>>>>>> 9420ee4dc75ae5430d9d28931bd8aad3edd19ae0
 }
