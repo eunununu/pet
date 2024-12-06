@@ -3,6 +3,7 @@ package com.example.pet.controller;
 import ch.qos.logback.core.encoder.EchoEncoder;
 import com.example.pet.dto.MemberDTO;
 import com.example.pet.dto.PageRequestDTO;
+import com.example.pet.dto.PageResponseDTO;
 import com.example.pet.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -120,6 +121,11 @@ public class MemberController {
     @GetMapping("/list")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String memberList(PageRequestDTO pageRequestDTO, Model model, Principal principal) {
+
+        PageResponseDTO<MemberDTO> pageResponseDTO =
+                memberService.list(pageRequestDTO, principal.getName());
+
+        model.addAttribute("pageResponseDTO", pageResponseDTO);
 
         return "member/list";
     }

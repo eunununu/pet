@@ -4,6 +4,7 @@ import com.example.pet.constant.ItemCategory1;
 import com.example.pet.constant.ItemCategory2;
 import com.example.pet.dto.PageRequestDTO;
 import com.example.pet.entity.Item;
+import com.example.pet.entity.Member;
 import com.example.pet.entity.QItem;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
@@ -143,6 +144,8 @@ public class ItemsearchRepositoryImpl extends QuerydslRepositorySupport implemen
         return new PageImpl<>(boardList, pageable, count);
 
     }
+
+
 
     public Page<Item> getAdminItemPage (PageRequestDTO pageRequestDTO, Pageable pageable){
 

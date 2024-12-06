@@ -36,6 +36,10 @@ public class Order extends BaseEntity {
         this.orderItemList.add(item);
     }
 
+    public void setOrderItemList(List<OrderItem> orderItemList){
+        this.orderItemList = orderItemList;
+    }
+
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)

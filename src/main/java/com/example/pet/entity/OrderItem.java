@@ -8,7 +8,7 @@ import org.aspectj.weaver.ast.Or;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString (exclude = "order")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
