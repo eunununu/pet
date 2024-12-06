@@ -103,6 +103,37 @@ public class OrderService {
         }
     }
 
+    public Long orders(List<OrderDTO> orderDTOList, String identity){
+
+        Member member = memberRepository.findByIdentity(identity);
+        List<OrderItem> orderItemList = new ArrayList<>();
+        Order order = new Order();
+
+        for (OrderDTO orderDTO : orderDTOList){
+            Item item = itemRepository.findById(orderDTO.getItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.setItem(item);
+            orderItem.setCount(orderDTO.getCount());
+            orderItem.setOrderPr(item.getPrice());
+            orderItem.setOrder(order);
+
+            item.setItemSq(item.getItemSq() - orderDTO.getCount());
+
+            orderItemList.add(orderItem);
+        }
+        order.setMember(member);
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        order.setOrderItemList(orderItemList);
+
+        orderRepository.save(order);
+
+        return order.getId();
+    }
+
+
     public Page<OrderHistDTO> getOrderList(String identity, Pageable pageable){
 
         List<Order> orderList = orderRepository.findOrders(identity, pageable);

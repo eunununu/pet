@@ -2,22 +2,34 @@ package com.example.pet.service;
 
 import com.example.pet.constant.Role;
 import com.example.pet.dto.MemberDTO;
+import com.example.pet.dto.PageRequestDTO;
+import com.example.pet.dto.PageResponseDTO;
 import com.example.pet.entity.Member;
 import com.example.pet.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Limit;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log4j2
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public UserDetails loadUserByUsername(String identity) throws UsernameNotFoundException {
@@ -99,4 +111,25 @@ public class MemberService implements UserDetailsService {
         return  memberRepository.findIdentity(identity, name);
     }
 
+
+    public PageResponseDTO<MemberDTO> list(PageRequestDTO pageRequestDTO, String identity){
+
+        Pageable pageable = pageRequestDTO.getPageable("id");
+
+        Page<Member> members =
+                memberRepository.getMemberList(pageable);
+
+        List<MemberDTO> memberDTOPage =
+                members.getContent().stream().map(member -> modelMapper.map(member, MemberDTO.class))
+                        .collect(Collectors.toList());
+
+        PageResponseDTO<MemberDTO> memberDTOPageResponseDTO =
+                PageResponseDTO.<MemberDTO>withAll()
+                        .pageRequestDTO(pageRequestDTO)
+                        .dtoList(memberDTOPage)
+                        .total((int) members.getTotalElements())
+                        .build();
+
+        return memberDTOPageResponseDTO;
+    }
 }

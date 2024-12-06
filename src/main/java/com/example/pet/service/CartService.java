@@ -2,6 +2,8 @@ package com.example.pet.service;
 
 import com.example.pet.dto.CartDetailDTO;
 import com.example.pet.dto.CartItemDTO;
+import com.example.pet.dto.CartOrderDTO;
+import com.example.pet.dto.OrderDTO;
 import com.example.pet.entity.Cart;
 import com.example.pet.entity.CartItem;
 import com.example.pet.entity.Item;
@@ -24,6 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class CartService {
+
+    private final OrderService orderService;
 
     private final ItemRepository itemRepository;
 
@@ -81,8 +85,54 @@ public class CartService {
         cartDetailDTOList = cartItemRepository.findCartDetailDTOList(cart.getId());
 
         return cartDetailDTOList;
-
     }
 
+    public boolean validateCartItem(Long cartItemId, String identity){
 
+        Member member = memberRepository.findByIdentity(identity);
+
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+
+        if (member!=null && cartItem!=null){
+
+            if (!member.getIdentity().equals(cartItem.getCart().getMember().getIdentity())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void deleteCartItem (Long cartItemId){
+
+        CartItem cartItem =
+                cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+
+        cartItemRepository.delete(cartItem);
+    }
+
+    public Long orderCartItem(List<CartOrderDTO> cartOrderDTOList, String identity) {
+
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+
+        for (CartOrderDTO cartOrderDTO : cartOrderDTOList){
+
+            CartItem cartItem = cartItemRepository.findById(cartOrderDTO.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setItemId(cartItem.getItem().getId());
+            orderDTO.setCount(cartItem.getCount());
+
+            orderDTOList.add(orderDTO);
+        }
+        Long orderId = orderService.orders(orderDTOList, identity);
+
+        for (CartOrderDTO cartOrderDTO : cartOrderDTOList){
+            CartItem cartItem = cartItemRepository.findById(cartOrderDTO.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
+            cartItemRepository.delete(cartItem);
+        }
+        return orderId;
+    }
 }
